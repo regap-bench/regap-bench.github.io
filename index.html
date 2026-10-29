@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Diagnosing the Reference Gap: What Visual Scaffolds<br>Can and Cannot Fix in Multimodal Reasoning. ReGap-Bench, a paired reference-intervention benchmark for MLLMs.">
+  <meta name="keywords" content="Reference Gap, ReGap-Bench, MLLM, visual reasoning, visual routines, visual prompting">
+  <title>Diagnosing the Reference Gap</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Noto+Sans:wght@400;500;700&family=Castoro&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+
+<!-- ============ Hero / title ============ -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Diagnosing the Reference Gap: What Visual Scaffolds<br>Can and Cannot Fix in Multimodal Reasoning</h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="#">Guizhen Chen</a><sup>1,2</sup>,</span>
+            <span class="author-block"><a href="#">Weiwen Xu</a><sup>2,&dagger;</sup>,</span>
+            <span class="author-block"><a href="#">Wotao Yin</a><sup>2</sup>,</span>
+            <span class="author-block"><a href="#">Anh Tuan Luu</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="#">Hou Pong Chan</a><sup>3,4,&dagger;</sup></span>
+          </div>
+
+          <div class="is-size-6 publication-authors affiliations">
+            <span class="author-block"><sup>1</sup>Nanyang Technological University</span>
+            <span class="author-block"><sup>2</sup>DAMO Academy, Alibaba Group US</span>
+            <span class="author-block"><sup>3</sup>Department of Artificial Intelligence, University of Macau</span>
+            <span class="author-block"><sup>4</sup>Institute of Artificial Intelligence and Brain Sciences, University of Macau</span>
+          </div>
+          <div class="is-size-7 publication-authors note">
+            <span>&dagger;Corresponding authors</span>
+          </div>
+
+          <div class="publication-links">
+            <!-- TODO: replace "#" with real links -->
+            <span class="link-block">
+              <a href="#" class="button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#" class="button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#" class="button is-normal is-rounded is-dark">
+                <span class="icon">&#129303;</span><span>Dataset</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Teaser ============ -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="static/images/intro-teaser.png" alt="GPT-5.4 mini counting ellipses with and without numbering references" class="figure">
+      <h2 class="subtitle">
+        Same scene, same question &mdash; only the reference changes. In the plain setting (left), the model refers to
+        shapes by vague locations and double counts. With numbering (right), it lists the ellipses by numerical label and answers correctly.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Abstract ============ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Multimodal large language models can recognize visual content yet struggle to reason reliably over it across
+            multiple steps. In counting, a model may see all objects but lose track of which ones it has counted. We argue
+            that such failures, commonly attributed to perception, reveal a <b>reference gap</b>: the failure to bind
+            language to the relevant visual entities, regions, or locations.
+            Motivated by the theory of visual routines, we test whether external references such as numbering can narrow
+            this gap. We introduce <b>ReGap-Bench</b>, a paired benchmark of five visual reasoning tasks in which the
+            scene, question, and answer are fixed and only the reference varies. Results show that task-matched
+            references improve accuracy by up to 25%, while mismatched references provide little benefit or even hurt
+            performance.
+            These findings identify the reference gap as a bottleneck distinct from visual perception and show that
+            constructing task-appropriate visual references can serve as a <b>training-free visual skill</b> for
+            improving multimodal reasoning.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Three references ============ -->
+<section class="section alt">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">External References for Visual Routines</h2>
+    <p class="content has-text-justified intro">
+      Following Ullman's theory of <i>visual routines</i>, we propose three references that externalize intermediate
+      visual states. Our hypothesis: <b>a reference helps most when it matches the visual routines the task needs.</b>
+    </p>
+    <div class="columns">
+      <div class="column">
+        <div class="ref-card ref-num">
+          <div class="ref-icon"><i class="fas fa-list-ol"></i></div>
+          <h3 class="title is-5">Numbering</h3>
+          <p class="routine">indexing &amp; marking</p>
+          <p>Turns description-dependent elements into addressable entities: &ldquo;shape 7&rdquo; instead of &ldquo;the upper-left triangle&rdquo;.</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ref-card ref-shade">
+          <div class="ref-icon"><i class="fas fa-fill-drip"></i></div>
+          <h3 class="title is-5">Shading</h3>
+          <p class="routine">bounded activation</p>
+          <p>Makes a region explicit: shading an angle's interior makes the angular region itself visible.</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ref-card ref-grid">
+          <div class="ref-icon"><i class="fas fa-border-all"></i></div>
+          <h3 class="title is-5">Grid lines</h3>
+          <p class="routine">focus shifts &amp; boundary tracing</p>
+          <p>Provides a common frame for position, width, height, displacement and alignment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Benchmark ============ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">ReGap-Bench</h2>
+    <div class="content has-text-justified">
+      <p>
+        ReGap-Bench applies a <b>paired reference intervention</b> to five tasks. Each scene is rendered
+        under a plain condition and one or more reference conditions.
+      </p>
+    </div>
+    <img src="static/images/bench-examples.png" alt="Example ReGap-Bench scenes under each reference condition" class="figure">
+  </div>
+</section>
+
+<!-- ============ Interactive explorer ============ -->
+<section class="section alt">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Explore the Benchmark</h2>
+    <p class="content has-text-centered intro">Pick a task, then toggle the reference. The underlying scene never changes.</p>
+
+    <div class="tabs is-centered is-toggle is-small task-tabs" id="task-tabs"></div>
+    <div class="explorer box">
+      <p class="question"><b>Q:</b> <span id="ex-question"></span></p>
+      <div class="cond-buttons buttons is-centered" id="cond-buttons"></div>
+      <div class="ex-image-wrap"><img id="ex-image" alt="Benchmark sample"></div>
+      <p class="answer"><b>Answer:</b> <span id="ex-answer"></span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Findings ============ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Key Findings</h2>
+
+    <div class="finding">
+      <h3 class="title is-4"><span class="fnum">1</span>Task-matched references improve visual reasoning</h3>
+      <img src="static/images/numbering-main.png" alt="Numbering results on shape counting and clock ranking" class="figure">
+      <p class="caption">Numbering improves performance on shape counting and clock ranking.</p>
+      <img src="static/images/shading-main.png" alt="Shading results on angle ranking and size ranking" class="figure result-fig">
+      <p class="caption">Shading improves angle ranking and size ranking.</p>
+      <img src="static/images/grid-main.png" alt="Grid-line results on size ranking and transformation prediction" class="figure result-fig">
+      <p class="caption">Grid lines improve size ranking and transformation prediction.</p>
+    </div>
+
+    <div class="columns">
+      <div class="column">
+        <div class="finding">
+          <h3 class="title is-5"><span class="fnum">2</span>Matching matters, not just adding marks</h3>
+          <p class="small">Mean accuracy change on shape counting, by reference:</p>
+          <div class="bars diverging">
+            <div class="bar-row"><span class="bl">Numbering</span><div class="track"><div class="bar pos num" style="width:calc(11.3 / 12 * 50%)"></div></div><span class="bv">+11.3</span></div>
+            <div class="bar-row"><span class="bl">Shading</span><div class="track"><div class="bar pos shade" style="width:calc(1.7 / 12 * 50%)"></div></div><span class="bv">+1.7</span></div>
+            <div class="bar-row"><span class="bl">Grid lines</span><div class="track"><div class="bar neg grid" style="width:calc(4.1 / 12 * 50%)"></div></div><span class="bv">&minus;4.1</span></div>
+          </div>
+          <p class="small">Mismatched scaffolds are neutral or harmful.</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="finding">
+          <h3 class="title is-5"><span class="fnum">3</span>Complete references beat partial ones</h3>
+          <p class="small">Mean clock-ranking accuracy vs. number of dial numerals shown:</p>
+          <div class="bars">
+            <div class="bar-row"><span class="bl">0 numerals</span><div class="track"><div class="bar num" style="width:calc(23.9 / 40 * 100%)"></div></div><span class="bv">23.9</span></div>
+            <div class="bar-row"><span class="bl">2 numerals</span><div class="track"><div class="bar num" style="width:calc(25.3 / 40 * 100%)"></div></div><span class="bv">25.3</span></div>
+            <div class="bar-row"><span class="bl">4 numerals</span><div class="track"><div class="bar num" style="width:calc(31.8 / 40 * 100%)"></div></div><span class="bv">31.8</span></div>
+            <div class="bar-row"><span class="bl">12 numerals</span><div class="track"><div class="bar num" style="width:calc(38.0 / 40 * 100%)"></div></div><span class="bv">38.0</span></div>
+          </div>
+          <p class="small">The trend is non-decreasing for every model.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <h3 class="title is-5"><span class="fnum">4</span>Scale does not close the gap</h3>
+      <img src="static/images/scaling.png" alt="Shape-counting accuracy of Qwen3-VL models from 2B to 235B, plain vs. numbering" class="figure scaling-fig">
+      <p class="caption">Scaling model size helps both plain and numbering, but does not eliminate the reference gap.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ Visual skill ============ -->
+<section class="section alt">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Task-Matched References as a Training-Free Visual Skill</h2>
+    <div class="columns is-vcentered">
+      <div class="column">
+        <div class="content has-text-justified">
+          <p>
+            We package the three references as a <b>visual skill</b> for agents: written rules map each visual operation to
+            a reference, before/after example images show how to draw it, and a script overlays it on a copy of the image.
+          </p>
+          <p>
+            On 100 stratified tasks from <b>CartoMapQA</b> (OpenStreetMap renderings), a Codex GPT-5.5 agent draws an
+            overlay on 57 tasks, choosing numbering for counting and route navigation, grids for route length, shading for
+            region isolation, and no overlay for symbol recognition &mdash; improving every overlay category without any training.
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="table-container">
+          <table class="table is-fullwidth results">
+            <thead><tr><th>Overlay</th><th>Tasks</th><th>No skill</th><th>With skill</th><th>&Delta;</th></tr></thead>
+            <tbody>
+              <tr><td>None</td><td>43</td><td>86.0</td><td>86.0</td><td>0.0</td></tr>
+              <tr><td>Numbering</td><td>41</td><td>63.7</td><td><b>70.1</b></td><td class="pos">+6.4</td></tr>
+              <tr><td>Grid lines</td><td>13</td><td>92.5</td><td><b>96.7</b></td><td class="pos">+4.2</td></tr>
+              <tr><td>Shading</td><td>3</td><td>33.3</td><td><b>66.7</b></td><td class="pos">+33.3</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BibTeX ============ -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">BibTeX</h2>
+    <!-- TODO: add the BibTeX entry once the paper is out, e.g.
+@inproceedings{chen2027referencegap,
+  title     = {Diagnosing the Reference Gap: What Visual Scaffolds Can and Cannot Fix in Multimodal Reasoning},
+  author    = {Chen, Guizhen and Xu, Weiwen and Yin, Wotao and Luu, Anh Tuan and Chan, Hou Pong},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2027}
+}
+    -->
+<pre><code>Coming soon.</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+        Commons Attribution-ShareAlike 4.0 International License</a>. Template adapted from
+        <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script src="static/js/index.js"></script>
+</body>
+</html>

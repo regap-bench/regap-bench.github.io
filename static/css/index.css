@@ -1,0 +1,132 @@
+:root {
+  --num: #dddaf5;      /* numbering (purple)  */
+  --num-strong: #6c63c7;
+  --shade: #d7e8e2;    /* shading (green)     */
+  --shade-strong: #3d8a6f;
+  --grid: #f8e9d8;     /* grid lines (orange) */
+  --grid-strong: #c77a2e;
+  --alt-bg: #fafafa;
+  --text: #363636;
+  --muted: #6b6b6b;
+}
+
+body { font-family: 'Noto Sans', sans-serif; color: var(--text); background: #fff; }
+
+.title, .publication-title, .subtitle { font-family: 'Google Sans', sans-serif; }
+
+.publication-title { font-family: 'Google Sans', sans-serif; line-height: 1.2; }
+.hero .hero-body { padding-bottom: 1.5rem; }
+
+.publication-authors { font-family: 'Google Sans', sans-serif; margin-top: 0.6rem; }
+.publication-authors a { color: hsl(204, 86%, 53%) !important; }
+.publication-authors a:hover { text-decoration: underline; }
+.author-block { display: inline-block; margin: 0 0.25rem; }
+.affiliations .author-block { margin: 0 0.5rem; color: var(--muted); }
+.note { color: var(--muted); }
+
+.venue {
+  display: inline-block; margin-top: 1rem; padding: 0.2rem 0.9rem;
+  border-radius: 999px; background: var(--num); color: #3b347f;
+  font-family: 'Google Sans', sans-serif; font-weight: 500;
+}
+
+.publication-links { margin-top: 1.2rem; }
+.link-block { display: inline-block; margin: 0.25rem; }
+.link-block a { margin: 0; }
+
+.teaser .hero-body { padding-top: 1.5rem; padding-bottom: 2rem; }
+.teaser .subtitle { margin-top: 1rem; font-size: 1.1rem; line-height: 1.6; text-align: justify; }
+
+.figure { width: 100%; height: auto; display: block; }
+.caption { text-align: center; color: var(--muted); font-size: 0.9rem; margin-top: 0.6rem; }
+
+.section.alt { background: var(--alt-bg); }
+.intro { max-width: 46rem; margin: 0 auto 1.8rem; color: var(--muted); }
+
+
+/* Reference cards */
+.ref-card { height: 100%; border-radius: 12px; padding: 1.4rem; }
+.ref-card .title { margin-bottom: 0.2rem; }
+.ref-card .routine { font-style: italic; color: var(--muted); margin-bottom: 0.7rem; }
+.ref-icon { font-size: 1.6rem; margin-bottom: 0.5rem; }
+.ref-num   { background: var(--num); }
+.ref-shade { background: var(--shade); }
+.ref-grid  { background: var(--grid); }
+.ref-num .ref-icon   { color: var(--num-strong); }
+.ref-shade .ref-icon { color: var(--shade-strong); }
+.ref-grid .ref-icon  { color: var(--grid-strong); }
+
+/* Stats */
+.stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
+.stat { min-width: 8rem; text-align: center; padding: 0.8rem 1rem; border: 1px solid #eee; border-radius: 10px; }
+.stat .num { display: block; font-family: 'Google Sans', sans-serif; font-size: 1.8rem; font-weight: 700; }
+.stat .lbl { color: var(--muted); font-size: 0.9rem; }
+
+/* Explorer */
+.task-tabs ul { flex-wrap: wrap; }
+.explorer { margin-top: 0.5rem; }
+.explorer .question { margin-bottom: 0.8rem; }
+.explorer .answer { margin-top: 0.8rem; color: var(--muted); }
+.ex-image-wrap { text-align: center; background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 0.5rem; }
+.ex-image-wrap img { max-width: 100%; max-height: 560px; height: auto; }
+.cond-buttons .button.is-selected.num   { background: var(--num);   border-color: var(--num-strong); }
+.cond-buttons .button.is-selected.shade { background: var(--shade); border-color: var(--shade-strong); }
+.cond-buttons .button.is-selected.grid  { background: var(--grid);  border-color: var(--grid-strong); }
+.cond-buttons .button.is-selected.plain { background: #eee;         border-color: #999; }
+
+/* Findings */
+.finding { margin-bottom: 2rem; }
+.finding .title { margin-bottom: 0.9rem; }
+.fnum {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.7em; height: 1.7em; margin-right: 0.5em; border-radius: 50%;
+  background: var(--text); color: #fff; font-size: 0.8em;
+}
+.result-fig { margin-top: 3rem; }
+.scaling-fig { max-width: 760px; margin: 0 auto; }
+.small { font-size: 0.9rem; color: var(--muted); }
+
+.bars { margin: 0.8rem 0; }
+.bar-row { display: flex; align-items: center; gap: 0.6rem; margin: 0.35rem 0; font-size: 0.9rem; }
+.bar-row .bl { width: 6.5rem; flex-shrink: 0; }
+.bar-row .bv { width: 3rem; text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
+.track { flex: 1; height: 1.1rem; background: transparent; position: relative; }
+/* Same fills and patterns as the paper's result figures */
+.bar { height: 100%; box-sizing: border-box; border: 1px solid #8c8c8c; }
+.bar.num   { background: radial-gradient(#8c8c8c 0.8px, transparent 1.2px) 0 0 / 5px 5px, #dddaf5; }
+.bar.shade { background: repeating-linear-gradient(-45deg, #8c8c8c 0 0.8px, transparent 0.8px 5px), #d8e8e5; }
+.bar.grid  { background: repeating-linear-gradient(45deg, #8c8c8c 0 0.8px, transparent 0.8px 5px),
+                         repeating-linear-gradient(-45deg, #8c8c8c 0 0.8px, transparent 0.8px 5px), #fbeede; }
+.diverging .track::after { content: ''; position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: #999; }
+.diverging .bar { position: absolute; top: 0; }
+.diverging .bar.pos { left: 50%; }
+.diverging .bar.neg { right: 50%; }
+
+.results td, .results th { text-align: center; vertical-align: middle; font-variant-numeric: tabular-nums; }
+.results td:first-child, .results th:first-child { text-align: left; }
+.results .pos { color: var(--shade-strong); font-weight: 600; }
+
+/* BibTeX */
+pre { white-space: pre-wrap; word-break: break-word; }
+
+.footer { padding: 2rem 1.5rem; }
+
+@media screen and (max-width: 768px) {
+  .publication-title { font-size: 1.8rem !important; }
+  .section { padding: 2.5rem 1rem; }
+  .bar-row .bl { width: 5.5rem; }
+}
+
+/* Section headers stay smaller than the paper title */
+.section h2.title.is-3 { font-size: 2rem; }
+@media screen and (max-width: 1023px) {
+  .section h2.title.is-3 { font-size: 1.5rem; }
+}
+
+/* Keep the title on two lines on desktop */
+@media screen and (min-width: 1024px) {
+  .publication-title { font-size: 2.3rem !important; white-space: nowrap; }
+}
+@media screen and (min-width: 1216px) {
+  .publication-title { font-size: 2.6rem !important; }
+}
