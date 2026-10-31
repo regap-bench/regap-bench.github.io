@@ -108,6 +108,8 @@ body { font-family: 'Noto Sans', sans-serif; color: var(--text); background: #ff
 
 /* BibTeX */
 pre { white-space: pre-wrap; word-break: break-word; }
+.bib-wrap { position: relative; }
+.copy-btn { position: absolute; top: 0.5rem; right: 0.5rem; }
 
 .footer { padding: 2rem 1.5rem; }
 

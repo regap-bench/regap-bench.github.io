@@ -74,4 +74,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Preload all sample images so toggling is instant.
   TASKS.forEach(t => t.conds.forEach(c => { new Image().src = `static/images/samples/${t.key}_${c}.png`; }));
 
+  document.getElementById('copy-bib').onclick = async (e) => {
+    const label = e.currentTarget.querySelector('span:last-child');
+    try {
+      await navigator.clipboard.writeText(document.getElementById('bibtex').textContent);
+      label.textContent = 'Copied!';
+    } catch (_) {
+      label.textContent = 'Copy failed';
+    }
+    setTimeout(() => { label.textContent = 'Copy'; }, 1500);
+  };
+
 });
